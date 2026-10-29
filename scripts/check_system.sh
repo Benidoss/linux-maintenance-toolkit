@@ -1,7 +1,7 @@
 #!/bin/bash
 set -euo pipefail
 
-SUEIL=80
+SUEIL=20
 
 reportDisk(){
     DISK=$(df / --output=pcent | tail -1 | tr -d ' %')
