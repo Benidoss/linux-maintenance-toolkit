@@ -1,12 +1,14 @@
 #!/bin/bash
 set -euo pipefail
 
-SUEIL=20
+# Dossier où se trouve ce script (scripts/), puis chargement de la configuration
+SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
+source "$SCRIPT_DIR/../config/maintenance.conf"
 
 reportDisk(){
     DISK=$(df / --output=pcent | tail -1 | tr -d ' %')
 
-    if [ "$DISK"  -gt  "$SUEIL" ]; then
+    if [ "$DISK"  -gt  "$DISK_SEUIL" ]; then
         echo "ALERTE"
 
     else
@@ -21,7 +23,7 @@ reportDisk(){
 reportMemory(){
     Memory=$(free | awk '/Mem:/ {printf "%d", $3/$2*100}')
 
-    if ["$Memory" -gt "$SUEIL"]; then
+    if [ "$Memory" -gt "$MEMORY_SEUIL" ]; then
         echo "ALERTE"
 
     else
@@ -42,5 +44,5 @@ displayCPU(){
 
 echo "=== Rapport système du $(date '+%Y-%m-%d %H:%M') ==="
 reportDisk
-reportDisk
+reportMemory
 displayCPU
