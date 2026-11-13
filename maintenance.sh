@@ -1,10 +1,11 @@
 #!/bin/bash
-set -eup pipefail
+set -euo pipefail
 
 
 # --- Chargement de la configuration ---
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"      # ici, SCRIPT_DIR = racine du projet
 source "$SCRIPT_DIR/config/maintenance.conf"
+FICHIER_LOG="$SCRIPT_DIR/logs/maintenance.log"
 
 # --- Créer le dossier du journal s'il n'existe pas ---
 mkdir -p "$(dirname "$FICHIER_LOG")"
